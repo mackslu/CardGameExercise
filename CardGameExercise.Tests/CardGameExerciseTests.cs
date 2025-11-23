@@ -262,6 +262,8 @@ public class CardGameExerciseTests
     [TestCase("1S")]
     [TestCase("2B")]
     [TestCase("2S,1S")]
+    [TestCase("C2")]
+    [TestCase("HD")]
     public void GivenAnUnRecognisableCard_ThenReturnsErrorMessage(string strCardsData)
     {
         CardManager cardManager = CardManager.Parse(strCardsData);
@@ -340,6 +342,10 @@ public class CardGameExerciseTests
     [TestCase("7")]
     [TestCase("8")]
     [TestCase("9")]
+    [TestCase("T")]
+    [TestCase("Q")]
+    [TestCase("K")]
+    [TestCase("A")]
     public void GivenNonJokerWithRPostFix_ThenReturnsErrorMessage(string strCardValue)
     {
         CardManager cardManager = CardManager.Parse(string.Concat(strCardValue, 'R'));
@@ -355,6 +361,19 @@ public class CardGameExerciseTests
         CardManager cardManager = CardManager.Parse(strCardValue);
         Assert.That(cardManager.Calculate(), Is.EqualTo("Invalid input string"));
         TestContext.WriteLine(cardManager.Calculate());
+    }
+    
+    [Theory]
+    [TestCase("10C")]
+    [TestCase("111D")]
+    [TestCase("2O")]
+    [TestCase("AF")]
+
+    public void GivenPoorlyFormattedIndividualCard_ThenParsesUnrecognized(string strCardValue)
+    {
+        Card card = Card.Parse(strCardValue);
+        Assert.That(card.Calculate(), Is.EqualTo(0));
+        TestContext.WriteLine(card.Calculate());
     }
     
     [Theory]
@@ -437,5 +456,26 @@ public class CardGameExerciseTests
         Card card = Card.Parse(strCardValue);
         Assert.That(card.GetMultiplicationFactor(), Is.EqualTo(4));
         TestContext.WriteLine(card.GetMultiplicationFactor());
+    }
+    
+    [Theory]
+    [TestCase("8C", '8')]
+    [TestCase("TC", 'T')]
+    [TestCase("QH", 'Q')]
+    [TestCase("JR", 'J')]
+    public void GivenACard_ParseOriginalCharCorrectly(string strInput, char chrExpectedValue) // This was added during development of the GUI - but does not affect any behavior or logic
+    {
+        Card card = Card.Parse(strInput);
+        Assert.That(card.chrCardValue, Is.EqualTo(chrExpectedValue));
+    }
+    
+    [Theory]
+    [TestCase("TC,TD,JR,TH,TS,JR", "100")]
+    [TestCase("2C,JR", "2")]
+    [TestCase("JR,2C,JR", "2")]
+    public void GivenACard_CalculateNonJokerScoreCorrectly(string input, string strExpectedScore) // This was added during development of the GUI - but does not affect any behavior or logic
+    {
+        CardManager cardManager = CardManager.Parse(input);
+        Assert.That(cardManager.Calculate(false), Is.EqualTo(strExpectedScore));
     }
 }

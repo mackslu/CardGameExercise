@@ -1,6 +1,6 @@
 ﻿namespace CardGameExercise;
 
-public readonly record struct Card(int intCardValue, char chrSuit, bool blnJoker, bool blnUnrecognised) 
+public readonly record struct Card(char chrCardValue, int intCardValue, char chrSuit, bool blnJoker, bool blnUnrecognised) 
 {
     private static readonly Dictionary<char, int> setValidSuits = new()
     {
@@ -13,12 +13,11 @@ public readonly record struct Card(int intCardValue, char chrSuit, bool blnJoker
     
     public static Card Parse(string strCardData)
     {
-        bool blnJoker;
-        bool blnUnrecognised;
+        bool blnJoker, blnUnrecognised;
         char chrSuit;
         
         strCardData = strCardData.ToUpper().Trim();
-        if (strCardData.Length < 2) return new Card(0, '.', false, true);
+        if (strCardData.Length < 2) return new Card('.', 0, '.', false, true);
         
         string strCardValue = strCardData[..1]; // Get first character of Card (the card value)
         int.TryParse(strCardValue, out int intCardValue); // If the first character is a numeric value, we can easily parse it
@@ -45,13 +44,14 @@ public readonly record struct Card(int intCardValue, char chrSuit, bool blnJoker
         }
 
         chrSuit = strCardData[1];
-        blnUnrecognised = (intCardValue < 2 && !blnJoker) || !setValidSuits.ContainsKey(chrSuit) || strCardValue != "J" && chrSuit == 'R';  // If the value is 0 or 1, and it's not a Joker, or the suit is not valid, this card is unrecognised.
+        blnUnrecognised = (intCardValue < 2 && !blnJoker) || !setValidSuits.ContainsKey(chrSuit) || (strCardValue != "J" && chrSuit == 'R');  // If the value is 0 or 1, and it's not a Joker, or the suit is not valid, this card is unrecognised.
         
-        return new Card(intCardValue, chrSuit, blnJoker, blnUnrecognised);
+        return new Card(strCardValue[0], intCardValue, chrSuit, blnJoker, blnUnrecognised);
     }
 
     public int Calculate()
     {
+        if (blnUnrecognised) return 0;
         return intCardValue * GetMultiplicationFactor();
     }
 

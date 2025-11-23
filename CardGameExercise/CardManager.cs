@@ -4,8 +4,9 @@ namespace CardGameExercise;
 
 public class CardManager
 {
-    private List<Card> lstCards { get; set; }
+    public List<Card> lstCards { get; set; }
     private List<string> lstErrorMessages { get; set; }
+    public int intAmountOfJokers {get; set;}
 
     private CardManager()
     {
@@ -40,14 +41,16 @@ public class CardManager
         {
             cardManager.lstErrorMessages.Add("Cards cannot be duplicated");
         }
+        
+        cardManager.intAmountOfJokers = cardManager.lstCards.Count(card => card.blnJoker);
 
-        if (cardManager.lstCards.Count(card => card.blnJoker) > 2)
+        if (cardManager.intAmountOfJokers > 2)
             cardManager.lstErrorMessages.Add("A hand cannot contain more than two Jokers");
         
         return cardManager;
     }
-
-    public string Calculate()
+    
+    public string Calculate(bool blnJokerMultiplication = true)
     {
         int intScore;
 
@@ -58,7 +61,7 @@ public class CardManager
 
         intScore = lstCards.Where(card => !card.blnJoker).Sum(card => card.Calculate());  // A joker does not have its own value - so we want to skip this
 
-        intScore *= (int)Math.Pow(2, lstCards.Count(card => card.blnJoker)); // A joker doubles the result, so one joker = doubled, 2 jokers = quadrupled
+        if (blnJokerMultiplication) intScore *= (int)Math.Pow(2, lstCards.Count(card => card.blnJoker)); // A joker doubles the result, so one joker = doubled, 2 jokers = quadrupled
         return intScore.ToString();
     }
 }
