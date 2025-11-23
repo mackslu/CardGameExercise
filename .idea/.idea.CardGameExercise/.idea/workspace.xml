@@ -11,7 +11,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9392df06-167f-4d35-a539-39c3c17cd9bd" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CardGameExercise/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CardGameExercise/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CardGameExercise.Tests/CardGameExerciseTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CardGameExercise.Tests/CardGameExerciseTests.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CardGameExercise.sln" beforeDir="false" afterPath="$PROJECT_DIR$/CardGameExercise.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CardGameExercise/Card.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CardGameExercise/Card.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CardGameExercise/CardManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CardGameExercise/CardManager.cs" afterDir="false" />
@@ -67,7 +66,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected=".NET Project.CardGameExercise.GUI">
+  <component name="RunManager" selected=".NET Project.CardGameExercise.CUI">
     <configuration name="CardGameExercise" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/CardGameExercise.Tests/bin/Debug/net9.0/CardGameExercise.Tests.dll" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -142,7 +141,7 @@
       <workItem from="1763829174146" duration="1996000" />
       <workItem from="1763855695664" duration="912000" />
       <workItem from="1763856722876" duration="1816000" />
-      <workItem from="1763898923926" duration="25733000" />
+      <workItem from="1763898923926" duration="27609000" />
     </task>
     <servers />
   </component>
