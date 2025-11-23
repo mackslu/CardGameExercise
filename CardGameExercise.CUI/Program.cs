@@ -29,6 +29,9 @@ public static class Program
                 : CardManager.Parse(strCardData);
 
             DisplayResult(cardManager);
+            
+            Console.WriteLine("Would you like to continue calculating results? (Y/N)");
+            blnContinueRunning = Console.ReadLine()?.Trim().ToUpper() == "Y";
         }
     }
 
